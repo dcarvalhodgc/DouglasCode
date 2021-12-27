@@ -1,0 +1,42 @@
+/*-------------------------------------------------------------------------------------------------------
+--- Company: BV
+--- Squad: Evolução
+--- Author: Douglas Gonçalves Carvalho
+--- Description: classe de teste para classe CaseBO
+--- Classe refatorada em 23/12/2021 Version 1.0
+-------------------------------------------------------------------------------------------------------*/
+@isTest
+public with sharing class CaseBO_Test 
+{
+    @TestSetup
+    static void setup()
+    {
+        //Recordtypes
+        Id recordType = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Case').getRecordTypeId();	
+		
+		//Case
+		Case varCase = ObjectFactory.getCase(recordType);
+		insert varCase;  
+    }
+
+    @isTest
+    public static void insertAcionista() 
+    {
+        Case varCase = [SELECT, status id FROM Case LIMIT 1];
+     	varCase.status = 'ativo';
+        
+        Test.startTest();
+
+            insert varCase;
+			
+		Test.stopTest();
+
+        //validação
+        List<Case> listCase = [SELECT id, Status
+                                     FROM Case 
+                                     WHERE id =: varCase.id                                                    
+                                     AND Status = 'Ativo'];
+                                                    
+        System.assert(listCase.size() > 0,'Case Atualizado');
+    }
+}

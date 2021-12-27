@@ -1,0 +1,48 @@
+/*-------------------------------------------------------------------------------------------------------
+--- Company: Banco Votorantim
+--- Author: Douglas Gonçalves Carvalho
+--- Description: squad Evolução  - Classe Trigger handler
+    Contem todas a chamadas de metodos para trigger de Case
+--- Date: 21/12/2021 Version 1.0
+-------------------------------------------------------------------------------------------------------*/
+public class CaseHandler extends TriggerHandler 
+{
+	private static CaseBO objCaseBO = CaseBO.getInstance();	
+   
+    //AFTER INSERT
+    public override void afterInsert() 
+	{	
+		objCaseBO.updateCase(trigger.new, (Map<Id, Case>)trigger.oldMap);	
+	}
+
+    //BEFORE INSERT
+	public override void beforeInsert() 
+    {
+		
+	}
+    
+    //AFTER UPDATE
+	public override void beforeUpdate()
+    {		
+				
+	} 
+
+    //BEFORE UPDATE
+	public override void afterUpdate() 
+	{
+		
+	}
+    
+    //BEFORE DELETE
+	public override void beforeDelete() 
+	{
+		
+	}
+    
+    //AFTER  UNDELETE
+	public override void afterUndelete() 
+	{
+		
+	}
+    
+}

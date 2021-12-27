@@ -1,0 +1,34 @@
+/*-------------------------------------------------------------------------------------------------------
+--- Company: Banco Votorantim
+--- Author: Douglas Gonçalves Carvalho
+--- Description: squad Evolução  - Classe BO
+    Contem toda a logica da trigger de Case
+--- Date: 21/12/2021 Version 1.0
+-------------------------------------------------------------------------------------------------------*/
+public with sharing class CaseBO {
+    
+    private static final CaseBO instancia = new CaseBO();
+    public CaseBO (){}
+    
+    public static CaseBO getInstance() 
+    {
+        return instancia;
+    }
+
+    public void updateCase(List<Case> listCase, Map<Id, Case> mapCaseOld)
+    {   
+        //Validation Map Null
+        if(mapCaseOld == null) mapCaseOld = new Map<Id, Case>(); 
+        set<Id> CaseIds = new set<Id>();      
+
+        for(Case varCase : listCase)
+        {	   
+            //Validation object Null                                                                                                      
+            Case varCaseOld = mapCaseOld.get(varCase.Id);
+            if(varCaseOld == null) varCaseOld = new Case();
+            
+            //Validation 
+            if(varCase.Status != varCaseOld.Status) CaseIds.add(varCase.id);
+        }    
+    }
+}

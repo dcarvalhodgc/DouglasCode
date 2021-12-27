@@ -1,0 +1,10 @@
+/*-------------------------------------------------------------------------------------------------------
+--- Company: Banco Votorantim
+--- Author: Douglas Gonçalves Carvalho
+--- Description: squad Evolução  - Trigger Case    
+--- Date: 27/12/2021 Version 1.0
+-------------------------------------------------------------------------------------------------------*/
+trigger CaseTrigger on Case (before insert, after insert, before update, after update) 
+{
+	new CaseHandler().run();
+}
